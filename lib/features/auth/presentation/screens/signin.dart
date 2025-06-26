@@ -99,14 +99,20 @@ class _SigninState extends ConsumerState<Signin> {
 
                   // Email Field
                   CustomInputField(
+                    borderRadius: 5,
+                    height: 52,
                     controller: emailController,
                     hintText: 'Email Address',
+                    fillColor: Color(0xffF2F1F3),
                     prefixIcon: Image.asset('assets/icons/email_icon.png'),
                   ),
-                  const SizedBox(height: 17),
+                  //const SizedBox(height: 17),
 
                   // Password Field
                   CustomInputField(
+                    borderRadius: 5,
+                    height: 52,
+                    fillColor: Color(0xffF2F1F3),
                     controller: passwordController,
                     hintText: 'Password',
                     obscureText: obscureText,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:noslag/core/constants/routes.dart';
+
 import 'package:noslag/features/dashboard/data/locals/dashboard_local.dart'; // your dashboardList
-import 'package:get/get.dart';
+
 import 'package:noslag/core/utils/responsive.dart';
+
 class DashboardGrid extends StatelessWidget {
   const DashboardGrid({super.key});
 
@@ -13,8 +14,9 @@ class DashboardGrid extends StatelessWidget {
       child: GridView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: dashboardList.length,
-        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: Responsive.isMobile(context) ? 2 : 4, // 2 items per row
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              Responsive.isMobile(context) ? 2 : 4, // 2 items per row
           mainAxisSpacing: 10, // vertical spacing
           crossAxisSpacing: 10, // horizontal spacing
           childAspectRatio: 0.9, // width to height ratio of each grid item
@@ -24,8 +26,7 @@ class DashboardGrid extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              print('product screen');
-              Get.toNamed(RoutesConstant.products);
+              
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),

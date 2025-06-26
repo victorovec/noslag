@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       title: 'NO SLAG',
       debugShowCheckedModeBanner: false,
       initialRoute: RoutesConstant.splash,
-      getPages: AppRoutes.routes
+      getPages: AppRoutes.routes,
+      
     );
   }
 }
