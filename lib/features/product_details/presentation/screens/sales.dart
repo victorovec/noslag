@@ -8,58 +8,69 @@ class Sales extends StatelessWidget {
     return Container(
       color: const Color(0xFFF2F1F3), // same page-grey you’re using
       //padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ───────────── Search & period filter ─────────────
-          Row(
-            children: const [
-              _SearchField(),
-              Spacer(),
-              _PeriodDropdown(),
-            ],
-          ),
-          const SizedBox(height: 12),
-
-          // Thin progress-bar-like line under the filters
-          Container(
-            height: 2,
-            color: const Color(0xFFD7D6DB),
-          ),
-          const SizedBox(height: 12),
-
-          // ───────────── Horizontally-scrollable table ─────────────
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              headingRowHeight: 44,
-              // ignore: deprecated_member_use
-              dataRowHeight: 52,
-              headingTextStyle: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-                color: Color(0xFF878594),
-              ),
-              dataTextStyle: const TextStyle(fontSize: 13),
-              columnSpacing: 28,
-              horizontalMargin: 16,
-              dividerThickness: 0.6,
-              columns: const [
-                DataColumn(label: Text('BATCH NO')),
-                DataColumn(label: Text('DATE\nRECEIVED')),
-                DataColumn(label: Text('SUPPLIER')),
-                DataColumn(label: Text('WAREHOUSE')),
-                DataColumn(label: Text('INITIAL\nQUANTITY')),
-                DataColumn(label: Text('COST\nPRICE')),
-                DataColumn(label: Text('INITIAL\nVALUE')),
-                DataColumn(label: Text('QUANTITY\nSOLD')),
-                DataColumn(label: Text('SALES\nVALUE')),
-                DataColumn(label: Text('GROSS\nMARGIN')),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ───────────── Search & period filter ─────────────
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                _SearchField(),
+                
+                _PeriodDropdown(),
               ],
-              rows: _demoRows,
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+        
+            // Thin progress-bar-like line under the filters
+            Container(
+              height: 2,
+              color: const Color(0xFFD7D6DB),
+            ),
+            const SizedBox(height: 12),
+        
+            // ───────────── Horizontally-scrollable table ─────────────
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                
+                decoration: BoxDecoration(
+                  color: Color(0xffffffff),
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                child: DataTable(
+                  headingRowHeight: 44,
+                  // ignore: deprecated_member_use
+                  dataRowHeight: 52,
+                  headingTextStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: Color(0xFF878594),
+                  ),
+                  dataTextStyle: const TextStyle(fontSize: 13),
+                  columnSpacing: 28,
+                  horizontalMargin: 16,
+                  dividerThickness: 0.6,
+                  columns: const [
+                    DataColumn(label: Text('BATCH NO')),
+                    DataColumn(label: Text('DATE\nRECEIVED')),
+                    DataColumn(label: Text('SUPPLIER')),
+                    DataColumn(label: Text('WAREHOUSE')),
+                    DataColumn(label: Text('INITIAL\nQUANTITY')),
+                    DataColumn(label: Text('COST\nPRICE')),
+                    DataColumn(label: Text('INITIAL\nVALUE')),
+                    DataColumn(label: Text('QUANTITY\nSOLD')),
+                    DataColumn(label: Text('SALES\nVALUE')),
+                    DataColumn(label: Text('GROSS\nMARGIN')),
+                  ],
+                  rows: _demoRows,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

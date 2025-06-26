@@ -13,247 +13,224 @@ class _AdjustmentsState extends State<Adjustments> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffF2F1F3), // Background color matching other screens
-      //padding: const EdgeInsets.all(16.0), // Overall screen padding for Adjustments content
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Top Filter and Search Hint Section
-          Row(
-            children: [
-              // Status Filter Dropdown (Corrected to show "Status All")
-              Container(
-                width: 120, // Fixed width for the dropdown as per screenshot implies
-              
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
-                decoration: BoxDecoration(
-                  //color: Colors.white,
-                  borderRadius: BorderRadius.circular(5.0),
-                  border: Border.all(color: const Color(0xFFD7D6DB)), // Light grey border
-                  
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedStatus,
-                    icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF878594)),
-                    // CORRECTED: Use selectedItemBuilder to show "Status" + selected value
-                    selectedItemBuilder: (BuildContext context) {
-                      return <String>['All', 'Approved', 'Pending', 'Rejected']
-                          .map((String value) {
-                        return Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min, // To keep the row compact
+      color: const Color(0xffF2F1F3),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Top Filter and Search Hint Section
+            Row(
+              children: [
+                Container(
+                  width: 120,
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: const Color(0xFFD7D6DB)),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: _selectedStatus,
+                      icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF878594)),
+                      selectedItemBuilder: (BuildContext context) {
+                        return <String>['All', 'Approved', 'Pending', 'Rejected']
+                            .map((String value) {
+                          return Row(
                             children: [
                               const Text(
-                                'Status ', // Added space for visual separation
+                                'Status ',
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF242429), // Dark text for "Status"
-                                  fontWeight: FontWeight.w500, // Slightly bolder
+                                  fontSize: 13,
+                                  color: Color(0xFF242429),
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              SizedBox(width: 5,),
+                              const SizedBox(width: 5),
                               Text(
-                                value, // The actual selected value (e.g., "All")
+                                value,
                                 style: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xFF878594), // Lighter text for the value
+                                  color: Color(0xFF878594),
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
+                          );
+                        }).toList();
+                      },
+                      items: <String>['All', 'Approved', 'Pending', 'Rejected']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF242429),
+                            ),
                           ),
                         );
-                      }).toList();
-                    },
-                    items: <String>['All', 'Approved', 'Pending', 'Rejected']
-                        .map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value, // This is just the selectable text in the popup list
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF242429),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedStatus = newValue!;
-                      });
-                    },
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF242429),
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedStatus = newValue!;
+                        });
+                      },
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF242429),
+                      ),
+                      dropdownColor: Colors.white,
+                      isDense: true,
+                      isExpanded: true,
                     ),
-                    dropdownColor: Colors.white,
-                    isDense: true, // Keep it compact vertically
-                    isExpanded: true, // Allows the dropdown to take the full width of its container
                   ),
                 ),
-              ),
-              const SizedBox(width: 10), // Space between dropdown and search hint
-              // Search by Date, Warehouse, Reason and Description
-              Expanded( // Expanded to take remaining horizontal space
-                child: Row(
-                  children: [
-                    const Icon(Icons.info_outline, size: 16, color: Color(0xFF6B6B6B)), // Info icon
-                    const SizedBox(width: 4),
-                    const Expanded( // Expanded to allow text to wrap within the row
-                      child: Text(
-                        'Search by Date, Warehouse, Reason and Description',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF6B6B6B), // Light grey for hint text
-                          overflow: TextOverflow.ellipsis, // Prevents overflow if it's very long
+                const SizedBox(width: 50),
+                Expanded(
+                  child: Row(
+                    children: const [
+                      Icon(Icons.info_outline, size: 14, color: Color(0xFF878594)),
+                      SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          'Search by Date, Warehouse, Reason and Description',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Color(0xFF878594),
+                            overflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          maxLines: 2,
                         ),
-                        maxLines: 2, // Allow text to wrap
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 20),
+
+            // Updated List of Adjustment Cards
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            // ignore: deprecated_member_use
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // First Column
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Gift from vendor',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF242429),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Quantity',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF6B6B6B),
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  '31 Jan 2023',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF878594),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Second Column
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: const [
+                                Text(
+                                  'Warehouse 1',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF242429),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Bonus',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF878594),
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  '5',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF242429),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Third Column: More Icon
+                          const Align(
+                            alignment: Alignment.topRight,
+                            child: Icon(Icons.more_vert, size: 20, color: Color(0xFF878594)),
+                          ),
+                        ],
                       ),
                     ),
+
+                    if (index < 4)
+                      const Divider(
+                        thickness: 1.0,
+                        color: Color(0xFFD7D6DB),
+                        height: 1.0,
+                      ),
                   ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20), // Spacing between filters and adjustment list
-
-          // List of Adjustment Cards
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  _buildAdjustmentCard(
-                    reason: 'Gift from vendor',
-                    date: '14 Jan 2023',
-                    warehouse: 'Warehouse 1',
-                    adjustmentType: 'Bonus',
-                    quantity: '5',
-                  ),
-                  // CORRECTED: Divider color and placement
-                  if (index < 4) // Don't show divider after the last item (itemCount - 1)
-                    const Divider(
-                      thickness: 1.0,
-                      color: Color(0xFFD7D6DB), // CORRECTED: Changed to light grey
-                      height: 1.0, // Minimal height for the divider area
-                    ),
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Helper widget to build an individual adjustment card
-  Widget _buildAdjustmentCard({
-    required String reason,
-    required String date,
-    required String warehouse,
-    required String adjustmentType,
-    required String quantity,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                reason,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF242429),
-                ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    warehouse,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF242429),
-                    ),
-                  ),
-                  const SizedBox(width: 2), // CORRECTED: Reduced space to make icon closer
-                  const Icon(Icons.more_vert, size: 20, color: Color(0xFF878594)),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Quantity',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF6B6B6B),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    date,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF878594),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    adjustmentType,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF878594),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    quantity,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF242429),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

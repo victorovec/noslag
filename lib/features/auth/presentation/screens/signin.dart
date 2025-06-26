@@ -87,6 +87,7 @@ class _SigninState extends ConsumerState<Signin> {
                   ),
                   
                   Responsive.isMobile(context) ? SizedBox(height: 93):SizedBox(height: 0),
+                  
                   const Text(
                     'Login as Vendor',
                     style: TextStyle(

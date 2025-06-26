@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:noslag/core/utils/responsive.dart';
 import 'package:noslag/core/widgets/custom_app_bar.dart';
 import 'package:noslag/features/product_details/data/locals/product_details_list.dart.dart';
 import 'package:noslag/features/product_details/presentation/screens/adjustments.dart';
@@ -24,14 +25,15 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
     final expandedIndices = ref.watch(expandedIndicesProvider);
      final Product product = Get.arguments;
     return Scaffold(
-      backgroundColor: Color(0xffF2F1F3),
+      //backgroundColor: Color(0xffF2F1F3),
+      backgroundColor: Color(0xffffffff),
       appBar: CustomAppBar(title: 'Product',showBack: true,),
       body: Column(
         children: [
         
           Image.network(
             product.imageUrl,
-            height: 357,
+            height: Responsive.isMobile(context) ? 357 :200,
             width: double.infinity,
             fit:
                 BoxFit
@@ -40,7 +42,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                 (context, error, stackTrace) =>
                     Image.asset(
                       'assets/images/matell.png',
-                      height: 357,
+                      height: Responsive.isMobile(context) ? 357 :200,
                       width: double.infinity,
                     ),
           ),
@@ -72,30 +74,30 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                 ],
               ),
               Container(
-                            width: 133,
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff13A9F4),
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow:[ BoxShadow(
-                                offset: Offset(0, 4),
-                                spreadRadius: 2,
-                                blurRadius: 12,
-                                color: Color(0x1A000000),
-                              ),],
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xff13A9F4)
-                              )
-                            ),
-                            child: Center(child: Text('Adjust Stock',
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13
-                            ),
-                            ))
-                          ),
+                  width: 133,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff13A9F4),
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow:[ BoxShadow(
+                      offset: Offset(0, 4),
+                      spreadRadius: 2,
+                      blurRadius: 12,
+                      color: Color(0x1A000000),
+                    ),],
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xff13A9F4)
+                    )
+                  ),
+                  child: Center(child: Text('Adjust Stock',
+                  style: TextStyle(
+                    color: Color(0xffFFFFFF),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13
+                  ),
+                  ))
+                ),
             ],),
           ),
            Divider(
@@ -105,6 +107,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
           ),
           Expanded(
             child: ListView.builder(
+            //physics: NeverScrollableScrollPhysics(),
             itemCount: productDetailsList.length,
             itemBuilder: (context, index) {
               final item = productDetailsList[index];
@@ -125,10 +128,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                         )),
                   ),
                   if (isExpanded)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 28),
-                    child: _buildExpandedContentForIndex(index),
-                  ),
+                  _buildExpandedContentForIndex(index),
                   Divider(
                   thickness: 1, 
                   color: Color(0xffD7D6DB), 
